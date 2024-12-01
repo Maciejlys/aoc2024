@@ -27,6 +27,7 @@ func getLists(input string) lists {
 	parsed := parse(input)
 	first := make([]int, 0)
 	second := make([]int, 0)
+
 	for _, n := range parsed {
 		numbers := strings.Split(n, "   ")
 		firstN, _ := strconv.Atoi(numbers[0])
@@ -39,15 +40,11 @@ func getLists(input string) lists {
 	return lists{first: first, second: second}
 }
 
-func sortLists(lists lists) {
-	sort.Ints(lists.first)
-	sort.Ints(lists.second)
-}
-
 func part1(input string) int {
 	sum := 0
 	lists := getLists(input)
-	sortLists(lists)
+	sort.Ints(lists.first)
+	sort.Ints(lists.second)
 
 	for i := 0; i < len(lists.first); i++ {
 		sum += int(math.Abs(float64(lists.first[i]) - float64(lists.second[i])))
