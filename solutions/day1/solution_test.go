@@ -13,13 +13,13 @@ func Test_part1(t *testing.T) {
 		{
 			name:  "example",
 			input: example,
-			want:  142,
+			want:  11,
 		},
-		// {
-		// 	name:  "actual",
-		// 	input: actual,
-		// 	want:  55017,
-		// },
+		{
+			name:  "actual",
+			input: actual,
+			want:  2742123,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -30,28 +30,28 @@ func Test_part1(t *testing.T) {
 	}
 }
 
-// func Test_part2(t *testing.T) {
-// 	tests := []struct {
-// 		name  string
-// 		input string
-// 		want  int
-// 	}{
-// 		{
-// 			name:  "example",
-// 			input: example2,
-// 			want:  281,
-// 		},
-// 		// {
-// 		// 	name:  "actual",
-// 		// 	input: actual,
-// 		// 	want:  53539,
-// 		// },
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			if got := part2(tt.input); got != tt.want {
-// 				t.Errorf("part2() = %v, want %v", got, tt.want)
-// 			}
-// 		})
-// 	}
-// }
+func Test_part2(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		want  int
+	}{
+		{
+			name:  "example",
+			input: example,
+			want:  31,
+		},
+		{
+			name:  "actual",
+			input: actual,
+			want:  21328497,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := part2(tt.input); got != tt.want {
+				t.Errorf("part2() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

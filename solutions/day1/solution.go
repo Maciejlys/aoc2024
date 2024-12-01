@@ -2,16 +2,14 @@ package main
 
 import (
 	_ "embed"
-	"log"
+	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
 
 //go:embed example.txt
 var example string
-
-//go:embed example2.txt
-var example2 string
 
 //go:embed input.txt
 var actual string
@@ -20,95 +18,56 @@ func parse(input string) []string {
 	return strings.Split(strings.TrimRight(input, "\n"), "\n")
 }
 
-const numbers = "0123456789"
+type lists struct {
+	first  []int
+	second []int
+}
+
+func getLists(input string) lists {
+	parsed := parse(input)
+	first := make([]int, 0)
+	second := make([]int, 0)
+	for _, n := range parsed {
+		numbers := strings.Split(n, "   ")
+		firstN, _ := strconv.Atoi(numbers[0])
+		secondN, _ := strconv.Atoi(numbers[1])
+
+		first = append(first, firstN)
+		second = append(second, secondN)
+	}
+
+	return lists{first: first, second: second}
+}
+
+func sortLists(lists lists) {
+	sort.Ints(lists.first)
+	sort.Ints(lists.second)
+}
 
 func part1(input string) int {
-	parsed := parse(input)
-	var first string
-	var second string
-	var sum int
+	sum := 0
+	lists := getLists(input)
+	sortLists(lists)
 
-	for _, line := range parsed {
-		for i := 0; i < len(line); i++ {
-			if strings.ContainsAny(line[i:i+1], numbers) {
-				first = line[i : i+1]
-				break
-			}
-		}
-
-		for i := len(line) - 1; i >= 0; i-- {
-			if strings.ContainsAny(line[i:i+1], numbers) {
-				second = line[i : i+1]
-				break
-			}
-		}
-		number, err := strconv.Atoi(first + second)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		sum += number
+	for i := 0; i < len(lists.first); i++ {
+		sum += int(math.Abs(float64(lists.first[i]) - float64(lists.second[i])))
 	}
 
 	return sum
 }
 
 func part2(input string) int {
-	parsed := parse(input)
-	words := map[string]string{
-		"one":   "1",
-		"two":   "2",
-		"three": "3",
-		"four":  "4",
-		"five":  "5",
-		"six":   "6",
-		"seven": "7",
-		"eight": "8",
-		"nine":  "9",
+	sum := 0
+	occurences := make(map[int]int)
+	lists := getLists(input)
+
+	for _, n := range lists.second {
+		occurences[n]++
 	}
 
-	var first string
-	var second string
-	var sum int
-
-	for _, line := range parsed {
-	outer:
-		for i := 0; i < len(line); i++ {
-			for k := range words {
-				if strings.Contains(line[0:i+1], k) {
-					first = words[k]
-					break outer
-				}
-			}
-			if strings.ContainsAny(line[i:i+1], numbers) {
-				first = line[i : i+1]
-				break
-			}
-		}
-	outer2:
-		for i := len(line) - 1; i >= 0; i-- {
-			for k := range words {
-				log.Print(line[i:len(line)])
-				if strings.Contains(line[i:len(line)], k) {
-					first = words[k]
-					break outer2
-				}
-			}
-			if strings.ContainsAny(line[i:i+1], numbers) {
-				second = line[i : i+1]
-				break
-			}
-		}
-		log.Print("Second:", second)
-		log.Print("in line:", line)
-
-		log.Print("------------------:")
-		number, err := strconv.Atoi(first + second)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		sum += number
+	for _, n := range lists.first {
+		sum += n * occurences[n]
 	}
+
 	return sum
 }
