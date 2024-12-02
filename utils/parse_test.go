@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test(t *testing.T) {
+func ParseTest(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
