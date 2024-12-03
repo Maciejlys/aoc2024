@@ -29,7 +29,7 @@ func getLists(input string) lists {
 	second := make([]int, 0)
 
 	for _, n := range parsed {
-		numbers := strings.Split(n, "   ")
+		numbers := strings.Fields(n)
 		firstN, _ := strconv.Atoi(numbers[0])
 		secondN, _ := strconv.Atoi(numbers[1])
 
