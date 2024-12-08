@@ -34,12 +34,6 @@ func generateCombinations(n int, symbols []string) []string {
 	return results
 }
 
-func parse(input string) map[int][]int {
-	nums := make(map[int][]int)
-
-	return nums
-}
-
 func findTestCases(input string, symbols []string) int {
 
 	sum := 0
