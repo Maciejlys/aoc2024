@@ -90,9 +90,7 @@ func pointsOnLine(p1, p2 image.Point, rect image.Rectangle) []image.Point {
 
 	current = p2
 	for current.In(rect) {
-		if !current.Eq(p1) || !current.Eq(p1) {
-			points = append(points, current)
-		}
+		points = append(points, current)
 		current = image.Point{X: current.X + dx, Y: current.Y + dy}
 	}
 
