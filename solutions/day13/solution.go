@@ -46,7 +46,6 @@ func (this game) tokensToWin(offset image.Point) int {
 	bp := (this.A.Y*prizeWithOffset.X - this.A.X*prizeWithOffset.Y) / (this.A.Y*this.B.X - this.A.X*this.B.Y)
 	if this.A.Mul(ap).Add(this.B.Mul(bp)) == prizeWithOffset {
 		return ap*3 + bp
-
 	}
 	return 0
 }
